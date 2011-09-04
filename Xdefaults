@@ -1,0 +1,40 @@
+
+URxvt.perl-ext-common: default,matcher
+URxvt.urlLauncher: web-browser
+URxvt.matcher.button: 1
+URxvt.scrollBar:  false
+URxvt.saveLines:  2048
+URxvt.colorUL:    #00ff00
+URxvt.font:       xft:Bitstream Vera Sans Mono:style=Regular:pixelsize=13
+
+URxvt.foreground: #000000
+URxvt.background: #ffffff
+
+! In each color pair, the second color is a brighter version of the first.
+
+URxvt*color0:     white
+URxvt*color8:     white
+
+URxvt*color1:     red3
+URxvt*color9:     red
+
+URxvt*color2:     green3
+URxvt*color10:    green
+
+URxvt*color3:     yellow3
+URxvt*color11:    yellow
+
+URxvt*color4:     DodgerBlue1
+URxvt*color12:    blue
+
+URxvt*color5:     magenta3
+URxvt*color13:    magenta
+
+URxvt*color6:     cyan3
+URxvt*color14:    cyan
+
+URxvt*color7:     black
+URxvt*color15:    gray50
+
+URxvt.termName:		xterm
+

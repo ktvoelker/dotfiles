@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/space/home/karl/code'
+let g:netrw_dirhist_2='/space/video/movies'
+let g:netrw_dirhist_3='/space/home/karl/.ssh'
+let g:netrw_dirhist_4='/space/home/karl/code/argon/src'
+let g:netrw_dirhist_5='/home/karl/school/706/project/src/Augment'
+let g:netrw_dirhist_6='/home/karl/school/706/project/src'
+let g:netrw_dirhist_7='/home/karl/school/706/project/test/get-names'
+let g:netrw_dirhist_8='/home/karl/school/706/project/src/Diglet'
