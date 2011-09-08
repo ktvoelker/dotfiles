@@ -41,12 +41,12 @@ function smart_path {
   local gp=$PWD
   until [ -d "$gp/.git" -o "$gp" = "$HOME" ]
   do
-    if [ $gp = / ]
+    if [ "$gp" = / ]
     then
       echo $PWD
       return
     fi
-    gp=$(dirname $gp)
+    gp=$(dirname "$gp")
   done
   local path=${PWD:${#gp}}
   if [ -d "$gp/.git" ]
