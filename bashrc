@@ -1,7 +1,17 @@
 #!/bin/bash
 
-if [ -f /opt/local/etc/bash_completion ]; then
+if [ -f /usr/local/etc/bash_completion ]; then
+  # Probably using Homebrew
+  . /usr/local/etc/bash_completion
+elif [ -f /opt/local/etc/bash_completion ]; then
+  # Probably using Macports
   . /opt/local/etc/bash_completion
+elif [ -f /etc/bash_completion ]; then
+  # Probably a normal system
+  . /etc/bash_completion
+elif [ -f /etc/bash/bashrc ]; then
+  # Gentoo (rancor)
+  . /etc/bash/bashrc
 fi
 
 # The __git_ps1 function is really good. Only use homegrown if it is missing
@@ -28,16 +38,7 @@ else
   }
 fi
 
-##
-# If the current directory is in a git working copy, shows the path relative to the
-# working copy root as //repo/whatever.
-#
-# Otherwise, if the current directory is in the current user's home directory, shows
-# the path relative to the home directory as ~/whatever.
-#
-# Otherwise, shows the absolute path.
-##
-function smart_path {
+function git_path {
   local gp=$PWD
   until [ -d "$gp/.git" -o "$gp" = "$HOME" ]
   do
@@ -58,19 +59,41 @@ function smart_path {
   fi
 }
 
-# Left-justified:  user@host:smart_path
-# Right-justified: extra information about the git repository
-# Second line: just the prompt (# for root, $ for others)
-export PS1='$(printf "%${COLUMNS}s" "$(gitb_time 2>/dev/null)")\r\u@\h:$(smart_path) \n\$ '
+# Yep, this is a two line prompt (though it may not be obvious). Format follows:
+# Path                                                  ($?) (git info) Time
+# Prompt-char
+export PS1='$(printf "%${COLUMNS}s" "$(gitb_time 2>/dev/null)")\r\u@\h:$(git_path) \n\$ '
+
+export SCALA_HOME=/opt/scala
+
+PATH="$SCALA_HOME/bin:$PATH"
+PATH="/opt/rakudo/bin:$PATH"
+PATH="/usr/local/bin:$PATH"
+PATH="/usr/local/sbin:$PATH"
+PATH="/usr/local/texlive/2011/bin/x86_64-darwin:$PATH"
+PATH="$HOME/.cabal/bin:$PATH"
+PATH="$HOME/usr/bin:$PATH"
 
 export PATH
 
-# Useful on Dvorak
+UNAME=`uname`
+if [ "$UNAME" = Darwin ]
+then
+  export CLICOLOR=1
+  alias cp="gcp"
+  alias mv="gmv"
+  alias tar="gtar"
+  alias chown="gchown"
+  alias chmod="gchmod"
+elif [ "$UNAME" = Linux ]
+then
+  alias ls='ls --color=auto'
+fi
+
+alias maven='mvn'
 alias u='ls'
 alias uu='ls -l'
 alias uua='ls -la'
-
-# Useful in general
 alias grep="grep -E --color=auto"
 alias crep="grep -n -A5 -B5"
 
@@ -88,4 +111,16 @@ shopt -s extglob
 shopt -s histappend
 
 export HISTCONTROL=ignoreboth
+
+export VIRTUAL_ENV_DISABLE_PROMPT=Please!!!
+
+if [ -f "$HOME/.pythonrc" ]
+then
+  export PYTHONSTARTUP=$HOME/.pythonrc
+fi
+
+if [ -d "$HOME/usr/lib/python" ]
+then
+  export PYTHONPATH=$HOME/usr/lib/python
+fi
 

@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+##
+# From http://docs.python.org/release/2.5.2/lib/module-rlcompleter.html
+#
+# Note: on MacOS X, the built-in readline module (which actually uses
+# libedit) does not succeed in providing completion.
+#
+# Run `sudo pip install readline` and then make sure the resulting
+# `readline.so` gets picked up when you `import readline`. You can check this
+# by looking at the value of `readline.__doc__`.
+#
+# My hacked-up solution to getting the GNU readline to load first was to copy
+# it to $HOME/usr/lib/python and put that directory as my PYTHONPATH.  Who
+# knows: maybe that broke things?
+##
+try:
+  import readline
+except ImportError:
+  pass
+else:
+  import rlcompleter
+  readline.parse_and_bind("tab: complete")
